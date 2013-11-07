@@ -29,6 +29,7 @@ var Gallery = {
 		self.$carouselImgs = self.$carousel.find('img');
 		self.$carouselImgWidth = self.$carouselImgs[0].width;
 		self.$carouselImgsLen = self.$carouselImgs.length;
+		self.$carouselWidth = $(".carousel").width();
 
 		self.current = 0;
 		
@@ -40,7 +41,6 @@ var Gallery = {
 		console.log(self.visRange);
 
 		self.arrowClick();
-		// self.thumbArrowClick();
 		self.thumbClick();
 	},
 
@@ -69,6 +69,18 @@ var Gallery = {
 		
 	},
 
+	// carouselReverseTransition: function(){
+	// 	var self = this;
+	// 	self.start = self.current - self.options.maxThumbs;
+	// 	self.end = self.current;
+	// 	self.$carousel.animate({
+	// 		'margin-left': -( (self.current - (self.options.maxThumbs - 1)) * self.$carouselWidth)
+	// 		});
+
+	// 	console.log("reverse transition");
+		
+	// },
+
 	thumbClick: function(){
 		var self = this;
 		self.$carousel.find('li').on('click', function(){
@@ -94,43 +106,25 @@ var Gallery = {
 		var lastThumb = self.$carouselImgsLen -1;
 
 		if (self.current <= self.start) {
-			self.start = self.current;
-			self.end = self.current + self.options.maxThumbs;
 
-			console.log(self.start);
-			console.log(self.end);
-			self.carouselTransition();
-
-		} else if (self.current >= self.end) {
 			self.start = self.current;
 			self.end = self.current + self.options.maxThumbs;
 			self.carouselTransition();
 			console.log("carousel transitioned");
-			console.log(self.start);
-			console.log(self.end);
+			console.log(self.current)
+			
+		} else if ( self.current >= self.end) {
 
-		
+			self.start = self.current;
+			self.end = self.current + self.options.maxThumbs;
+			self.carouselTransition();
+			console.log("carousel transitioned");
+			console.log(self.current)
+
 		} else {
 			console.log(pos);
 		}
 	},
-
-	// thumbArrowClick: function(){
-	// 	var self = this;
-	// 	var pos = self.current;
-	// 	var range = self.current + (self.options.maxThumbs - 1);
-
-	// 	self.$nav.find('button.thumb-dir').on('click', function(){
-	// 		var dataDir = $(this).data('dir');
-	// 		// self.setCurrent(dataDir);
-	// 		if(pos >= range || pos <= range){
-	// 			self.setCurrent();
-	// 		} else {
-	// 			console.log(pos);
-	// 		}
-			
-	// 	});
-	// },
 
 	setCurrent: function(dir){
 		var self = this;
@@ -143,7 +137,6 @@ var Gallery = {
 
 		self.sliderTransition();
 		self.testF();
-		// self.carouselTransition();
 	}
 };
 
