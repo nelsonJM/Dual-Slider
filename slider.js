@@ -15,6 +15,8 @@ var Gallery = {
 		var slider = $("div.slider ul");
 		var carousel = $("div.carousel ul");
 
+
+
 		self.elem = elem;
 		self.$elem = $(elem);
 
@@ -29,10 +31,16 @@ var Gallery = {
 		self.$carouselImgsLen = self.$carouselImgs.length;
 
 		self.current = 0;
+		
 		self.options = $.extend({}, $.fn.Gallery.options, options);
 
+		self.start = self.current;
+		self.end = self.options.maxThumbs;
+		self.visRange = $('.carousel ul li').slice(self.start, self.end);
+		console.log(self.visRange);
+
 		self.arrowClick();
-		self.thumbArrowClick();
+		// self.thumbArrowClick();
 		self.thumbClick();
 	},
 
@@ -45,45 +53,84 @@ var Gallery = {
 
 	carouselTransition: function(){
 		var self = this;
-		self.$carousel.animate({
+
+		if (self.current == self.$carouselImgsLen -1 && self.end == self.current + self.options.maxThumbs){
+			console.log("hooray");
+			self.start = self.current - self.options.maxThumbs;
+			self.end = self.current;
+			self.$carousel.animate({
+			'margin-left': -(self.options.maxThumbs * self.$carouselImgWidth)
+			});
+		} else {
+			self.$carousel.animate({
 			'margin-left': -(self.current * self.$carouselImgWidth)
-		});
+			});
+		}
+		
 	},
 
 	thumbClick: function(){
 		var self = this;
 		self.$carousel.find('li').on('click', function(){
-			// console.log($(this).data('num'));
+		
 			self.current = $(this).data('num');
-			// console.log(self.current);
-			// self.sliderTransition();
+	
+			self.sliderTransition();
 		});
 	},
 
 	arrowClick: function(){
 		var self = this;
-		self.$nav.find('button.slider-dir').on('click', function(){
+		self.$nav.find('button').on('click', function(){
 			var dataDir = $(this).data('dir');
-			self.setCurrent(dataDir);
-		});
-	},
-
-	thumbArrowClick: function(){
-		var self = this;
-		var pos = self.current;
-		var range = self.current + (self.options.maxThumbs - 1);
-
-		self.$nav.find('button.thumb-dir').on('click', function(){
-			var dataDir = $(this).data('dir');
-			// self.setCurrent(dataDir);
-			if(pos >= range || pos <= range){
-				self.setCurrent();
-			} else {
-				console.log(pos);
-			}
+			self.setCurrent(dataDir); // takes care of slider
 			
 		});
 	},
+
+	testF: function(){
+		var self = this;
+		var pos = self.current;
+		var lastThumb = self.$carouselImgsLen -1;
+
+		if (self.current <= self.start) {
+			self.start = self.current;
+			self.end = self.current + self.options.maxThumbs;
+
+			console.log(self.start);
+			console.log(self.end);
+			self.carouselTransition();
+
+		} else if (self.current >= self.end) {
+			self.start = self.current;
+			self.end = self.current + self.options.maxThumbs;
+			self.carouselTransition();
+			console.log("carousel transitioned");
+			console.log(self.start);
+			console.log(self.end);
+
+		
+		} else {
+			console.log(pos);
+		}
+	},
+
+	// thumbArrowClick: function(){
+	// 	var self = this;
+	// 	var pos = self.current;
+	// 	var range = self.current + (self.options.maxThumbs - 1);
+
+	// 	self.$nav.find('button.thumb-dir').on('click', function(){
+	// 		var dataDir = $(this).data('dir');
+	// 		// self.setCurrent(dataDir);
+	// 		if(pos >= range || pos <= range){
+	// 			self.setCurrent();
+	// 		} else {
+	// 			console.log(pos);
+	// 		}
+			
+	// 	});
+	// },
 
 	setCurrent: function(dir){
 		var self = this;
@@ -93,11 +140,9 @@ var Gallery = {
 
 		self.current = (pos < 0) ? self.$sliderImgsLen - 1 : pos % self.$sliderImgsLen;
 
-		// console.log(pos);
-		// console.log(self.$sliderImgsLen);
-		// return pos;
-		// console.log(self.current);
+
 		self.sliderTransition();
+		self.testF();
 		// self.carouselTransition();
 	}
 };
