@@ -29,7 +29,9 @@ var Gallery = {
 		self.$carouselImgs = self.$carousel.find('img');
 		self.$carouselImgWidth = self.$carouselImgs[0].width;
 		self.$carouselImgsLen = self.$carouselImgs.length;
+
 		self.$carouselWidth = $(".carousel").width();
+
 
 		self.current = 0;
 		
@@ -68,18 +70,6 @@ var Gallery = {
 		}
 		
 	},
-
-	// carouselReverseTransition: function(){
-	// 	var self = this;
-	// 	self.start = self.current - self.options.maxThumbs;
-	// 	self.end = self.current;
-	// 	self.$carousel.animate({
-	// 		'margin-left': -( (self.current - (self.options.maxThumbs - 1)) * self.$carouselWidth)
-	// 		});
-
-	// 	console.log("reverse transition");
-		
-	// },
 
 	thumbClick: function(){
 		var self = this;
@@ -120,10 +110,21 @@ var Gallery = {
 			self.carouselTransition();
 			console.log("carousel transitioned");
 			console.log(self.current)
+		
 
 		} else {
-			console.log(pos);
+			console.log("pos");
 		}
+	},
+
+	cTh: function(){
+		var self = this;
+		var pos = self.current;
+		$(".carousel li[data-num="+pos+"]")
+			.addClass("cTH")
+			.siblings("li")
+				.removeClass("cTH");
+		console.log("cTh shot");
 	},
 
 	setCurrent: function(dir){
@@ -137,6 +138,7 @@ var Gallery = {
 
 		self.sliderTransition();
 		self.testF();
+		self.cTh();
 	}
 };
 
