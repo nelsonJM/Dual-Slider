@@ -59,13 +59,29 @@ var Gallery = {
 	carouselFWDTransition: function(){
 		var self = this;
 
-		if (self.current == self.$carouselImgsLen -1 && self.end == self.current + self.options.maxThumbs){
+		if (self.current == self.$carouselImgsLen -1 && self.end >= self.$carouselImgsLen){
 			console.log("hooray");
-			self.start = self.current - self.options.maxThumbs;
-			self.end = self.current;
+			self.thumbStart = self.current - (self.options.maxThumbs - 1);
+			self.thumbEnd = self.current;
+
+			console.log(self.thumbStart);
+			console.log(self.thumbEnd);
+			console.log(self.current);
+			self.endThumbSlider = true;
 			self.$carousel.animate({
-			'margin-left': -(self.options.maxThumbs * self.$carouselImgWidth)
+			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
 			});
+		} else if (self.current == 0 && self.end >= self.$carouselImgsLen){
+
+			self.thumbStart = self.current;
+			self.thumbEnd = self.current + (self.options.maxThumbs - 1);
+
+			console.log(self.thumbStart);
+			console.log(self.thumbEnd);
+			self.$carousel.animate({
+			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
+			});
+
 		} else if(self.current + self.options.maxThumbs >= self.end && !self.endThumbSlider) {
 			console.log("end of the line");
 			var amountOver = (self.current + self.options.maxThumbs) - self.end;
@@ -76,7 +92,26 @@ var Gallery = {
 
 			self.endThumbSlider = true;
 			self.thumbStart = self.current - newSlideMultiplier + 1;
+			self.thumbEnd = self.end;
 			console.log(self.thumbStart);
+			self.$carousel.animate({
+			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
+			});
+
+		// } else if(self.current < self.thumbStart) {
+		// 	console.log("going back");
+		// 	self.thumbStart = self.current - self.options.maxThumbs - 1;
+		// 	self.thumbEnd = self.current;
+
+		// 	self.$carousel.animate({
+		// 	'margin-left': -(self.thumbStart * self.$carouselImgWidth)
+		// 	});
+
+		} else if(self.current < self.thumbStart && ((self.current - self.options.maxThumbs) <= self.start)) {
+			console.log("end of the line go back");
+			self.thumbStart = 0;
+			self.thumbEnd = self.current;
+
 			self.$carousel.animate({
 			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
 			});
@@ -129,6 +164,7 @@ var Gallery = {
 			self.current = $(this).data('num');
 	
 			self.sliderTransition();
+			self.cTh();
 		});
 	},
 
@@ -156,7 +192,8 @@ var Gallery = {
 		} else if ( self.current <= self.thumbEnd) {
 
 			console.log("moving");
-			console.log(self.current);
+			console.log(self.thumbStart);
+			console.log(self.thumbEnd);
 		
 		
 			
