@@ -32,9 +32,7 @@ var Gallery = {
 		self.current = 0;
 		
 		self.options = $.extend({}, $.fn.Gallery.options, options);
-
 		self.endThumbSlider = false;
-		
 		self.start = 0;
 		self.end = self.$carouselImgsLen;
 
@@ -69,7 +67,7 @@ var Gallery = {
 			console.log(self.thumbStart);
 			console.log(self.thumbEnd);
 			console.log(self.current);
-			self.endThumbSlider = true;
+			
 			self.$carousel.animate({
 			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
 			});
@@ -92,7 +90,7 @@ var Gallery = {
 			console.log(amountOver);
 			console.log(newSlideMultiplier);
 
-			self.endThumbSlider = true;
+			self.endThumbSlider = false;
 			self.thumbStart = self.current - newSlideMultiplier + 1;
 			self.thumbEnd = self.end;
 			console.log(self.thumbStart);
@@ -193,7 +191,7 @@ var Gallery = {
 		}
 	},
 
-	cTh: function(e){
+	cTh: function(){
 
 		var self = this;
 		var pos = self.current;
