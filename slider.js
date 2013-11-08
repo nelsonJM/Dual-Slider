@@ -32,7 +32,9 @@ var Gallery = {
 		self.current = 0;
 		
 		self.options = $.extend({}, $.fn.Gallery.options, options);
+
 		self.endThumbSlider = false;
+		
 		self.start = 0;
 		self.end = self.$carouselImgsLen;
 
@@ -98,15 +100,6 @@ var Gallery = {
 			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
 			});
 
-		// } else if(self.current < self.thumbStart) {
-		// 	console.log("going back");
-		// 	self.thumbStart = self.current - self.options.maxThumbs - 1;
-		// 	self.thumbEnd = self.current;
-
-		// 	self.$carousel.animate({
-		// 	'margin-left': -(self.thumbStart * self.$carouselImgWidth)
-		// 	});
-
 		} else if(self.current < self.thumbStart && ((self.current - self.options.maxThumbs) <= self.start)) {
 			console.log("end of the line go back");
 			self.thumbStart = 0;
@@ -139,28 +132,11 @@ var Gallery = {
 		
 	},
 
-	// carouselTransition: function(){
-	// 	var self = this;
-
-	// 	if (self.current == self.$carouselImgsLen -1 && self.end == self.current + self.options.maxThumbs){
-	// 		console.log("hooray");
-	// 		// self.start = self.current - self.options.maxThumbs;
-	// 		self.end = self.current;
-	// 		self.$carousel.animate({
-	// 		'margin-left': -(self.options.maxThumbs * self.$carouselImgWidth)
-	// 		});
-	// 	} else {
-	// 		self.$carousel.animate({
-	// 		'margin-left': -(self.current * self.$carouselImgWidth)
-	// 		});
-	// 	}
-		
-	// },
-
 	thumbClick: function(){
 		var self = this;
-		self.$carousel.find('li').on('click', function(){
-		
+
+		self.$carousel.find('li').on('click', function(e){
+			e.preventDefault();
 			self.current = $(this).data('num');
 	
 			self.sliderTransition();
@@ -187,15 +163,11 @@ var Gallery = {
 			console.log(self.current);
 			self.carouselFWDTransition();
 			
-
-
 		} else if ( self.current <= self.thumbEnd) {
 
 			console.log("moving");
 			console.log(self.thumbStart);
 			console.log(self.thumbEnd);
-		
-		
 			
 		}  else if ( self.current >= self.thumbEnd) {
 			self.thumbStart = self.current;
@@ -204,7 +176,6 @@ var Gallery = {
 			// self.end = self.current + self.options.maxThumbs;
 			console.log("carousel fwd transitioned");
 	
-			
 			self.carouselFWDTransition();
 			
 		} else if ( self.current > self.thumbEnd && self.endThumbSlider) {
@@ -222,9 +193,11 @@ var Gallery = {
 		}
 	},
 
-	cTh: function(){
+	cTh: function(e){
+
 		var self = this;
 		var pos = self.current;
+
 		$(".carousel li[data-num="+pos+"]")
 			.addClass("cTH")
 			.siblings("li")
