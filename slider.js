@@ -32,12 +32,17 @@ var Gallery = {
 		self.current = 0;
 		
 		self.options = $.extend({}, $.fn.Gallery.options, options);
+		self.endThumbSlider = false;
+		self.start = 0;
+		self.end = self.$carouselImgsLen;
 
-		self.start = self.current;
-		self.end = self.current + (self.options.maxThumbs - 1);
-		self.visRange = $('.carousel ul li').slice(self.start, self.$carouselImgsLen);
+		self.thumbStart = self.current;
+		self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
+
+		self.visRange = $('.carousel ul li').slice(self.start, self.end);
 		console.log(self.visRange);
 		console.log(self.current);
+
 		console.log(self.end);
 
 		self.arrowClick();
@@ -61,44 +66,61 @@ var Gallery = {
 			self.$carousel.animate({
 			'margin-left': -(self.options.maxThumbs * self.$carouselImgWidth)
 			});
-		} else if(self.current + self.options.maxThumbs > self.end) {
+		} else if(self.current + self.options.maxThumbs >= self.end && !self.endThumbSlider) {
 			console.log("end of the line");
 			var amountOver = (self.current + self.options.maxThumbs) - self.end;
 			var newSlideMultiplier = self.options.maxThumbs - amountOver;
+
 			console.log(amountOver);
 			console.log(newSlideMultiplier);
-			// self.$carousel.animate({
-			// 'margin-left': -(newSlideMultiplier * self.$carouselImgWidth)
-			// });
-		} else if (self.current = self.current + self.options.maxThumbs) {
+
+			self.endThumbSlider = true;
+			self.thumbStart = self.current - newSlideMultiplier + 1;
+			console.log(self.thumbStart);
+			self.$carousel.animate({
+			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
+			});
+
+		} else if(self.current == (self.thumbStart - 1)) {
+			console.log("moving back");
+			self.thumbStart = self.current - (self.options.maxThumbs - 1);
+			self.thumbEnd = self.current;
+			console.log(self.thumbStart);
+			console.log(self.thumbEnd);
+			self.$carousel.animate({
+			'margin-left': -(self.thumbStart * self.$carouselImgWidth)
+			});
+
+		} else {
+			console.log("booyah");
+			console.log(self.thumbStart);
+
+			console.log(self.thumbEnd);
+			// self.endThumbSlider = true;
 			self.$carousel.animate({
 			'margin-left': -(self.current * self.$carouselImgWidth)
-			});
-		} else {
-			self.$carousel.animate({
-			'margin-left': -(1 * self.$carouselWidth)
 			});
 		}
 		
 	},
 
-	carouselTransition: function(){
-		var self = this;
+	// carouselTransition: function(){
+	// 	var self = this;
 
-		if (self.current == self.$carouselImgsLen -1 && self.end == self.current + self.options.maxThumbs){
-			console.log("hooray");
-			self.start = self.current - self.options.maxThumbs;
-			self.end = self.current;
-			self.$carousel.animate({
-			'margin-left': -(self.options.maxThumbs * self.$carouselImgWidth)
-			});
-		} else {
-			self.$carousel.animate({
-			'margin-left': -(self.current * self.$carouselImgWidth)
-			});
-		}
+	// 	if (self.current == self.$carouselImgsLen -1 && self.end == self.current + self.options.maxThumbs){
+	// 		console.log("hooray");
+	// 		// self.start = self.current - self.options.maxThumbs;
+	// 		self.end = self.current;
+	// 		self.$carousel.animate({
+	// 		'margin-left': -(self.options.maxThumbs * self.$carouselImgWidth)
+	// 		});
+	// 	} else {
+	// 		self.$carousel.animate({
+	// 		'margin-left': -(self.current * self.$carouselImgWidth)
+	// 		});
+	// 	}
 		
-	},
+	// },
 
 	thumbClick: function(){
 		var self = this;
@@ -124,25 +146,40 @@ var Gallery = {
 		var pos = self.current;
 		var lastThumb = self.$carouselImgsLen -1;
 
-		if (self.current <= self.start) {
-
-			self.start = self.current;
-			self.end = self.current + self.options.maxThumbs;
-			self.carouselTransition();
+		if (self.current < self.thumbStart) {
 			console.log("carousel transitioned");
-			console.log(self.current)
-			
-		} else if ( self.current >= self.options.maxThumbs) {
-
-			self.start = self.current;
-			// self.end = self.current + self.options.maxThumbs;
-			console.log("carousel transitioned");
-			console.log(self.current)
+			console.log(self.current);
 			self.carouselFWDTransition();
 			
-			
-		
 
+
+		} else if ( self.current <= self.thumbEnd) {
+
+			console.log("moving");
+			console.log(self.current);
+		
+		
+			
+		}  else if ( self.current >= self.thumbEnd) {
+			self.thumbStart = self.current;
+			self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
+			// self.start = self.current;
+			// self.end = self.current + self.options.maxThumbs;
+			console.log("carousel fwd transitioned");
+	
+			
+			self.carouselFWDTransition();
+			
+		} else if ( self.current > self.thumbEnd && self.endThumbSlider) {
+			self.thumbStart = self.current;
+			// self.start = self.current;
+			// self.end = self.current + self.options.maxThumbs;
+			console.log("carousel fwd 2 transitioned");
+		
+			console.log(self.thumbStart);
+			
+			self.carouselFWDTransition();
+			
 		} else {
 			console.log(self.current);
 		}
