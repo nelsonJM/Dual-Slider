@@ -74,6 +74,17 @@ if(typeof Object.create !== 'function'){
 						.hide();
 		},
 
+		fadeTransition: function(currentImg){
+			var self = this;
+
+			var currentSliderImg = $(".slider ul li[data-num="+currentImg+"]");
+			
+			currentSliderImg
+				.fadeIn("500")
+					.siblings('li')
+						.fadeOut("500");
+		},
+
 		carouselFWDTransition: function(hey){
 			var self = this;
 			self.$carousel.animate({
