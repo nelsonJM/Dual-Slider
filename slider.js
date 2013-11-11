@@ -23,6 +23,7 @@ if(typeof Object.create !== 'function'){
 			self.$slider = self.$elem.find(slider);
 			self.$carousel = self.$elem.find(carousel);
 			self.$sliderImgs = self.$slider.find('img');
+			
 			self.$sliderImgWidth = self.$sliderImgs[0].width;
 			self.$sliderImgsLen = self.$sliderImgs.length;
 			self.$carouselImgs = self.$carousel.find('img');
@@ -62,6 +63,17 @@ if(typeof Object.create !== 'function'){
 			});
 		},
 
+		quickTransition: function(currentImg){
+			var self = this;
+
+			var currentSliderImg = $(".slider ul li[data-num="+currentImg+"]");
+			
+			currentSliderImg
+				.show()
+					.siblings('li')
+						.hide();
+		},
+
 		carouselFWDTransition: function(hey){
 			var self = this;
 			self.$carousel.animate({
@@ -75,7 +87,8 @@ if(typeof Object.create !== 'function'){
 				e.preventDefault();
 				self.current = $(this).data('num');
 		
-				self.sliderTransition();
+				// self.sliderTransition();
+				self.quickTransition(self.current);
 				self.cTh();
 			});
 		},
@@ -95,7 +108,7 @@ if(typeof Object.create !== 'function'){
 			var lastThumb = self.$carouselImgsLen -1;
 
 			if (self.current == self.$carouselImgsLen -1 && self.end >= self.$carouselImgsLen){
-				console.log("hooray");
+			
 				self.thumbStart = self.current - (self.options.maxThumbs - 1);
 				self.thumbEnd = self.current;
 
@@ -166,8 +179,9 @@ if(typeof Object.create !== 'function'){
 
 			var self = this;
 			var pos = self.current;
+			var cThumb = $(".carousel li[data-num="+pos+"]");
 
-			$(".carousel li[data-num="+pos+"]")
+			cThumb
 				.addClass("cTH")
 				.siblings("li")
 					.removeClass("cTH");
@@ -181,7 +195,8 @@ if(typeof Object.create !== 'function'){
 
 			self.current = (pos < 0) ? self.$sliderImgsLen - 1 : pos % self.$sliderImgsLen;
 
-			self.sliderTransition();
+			// self.sliderTransition();
+			self.quickTransition(self.current);
 			self.testF();
 			self.cTh();
 		}

@@ -1,3 +1,6 @@
+img {
+	max-width: 100%;
+}
 .slider-nav {
 	/*display: none;*/
 	margin-top: 1em;
@@ -12,6 +15,8 @@
 	width: inherit;
 	height: 300px;
 	overflow: scroll; 
+}
+.js .slider {
 	overflow:hidden;
 }
 .slider ul {
@@ -25,6 +30,8 @@
 	width: inherit;
 	height: 80px;
 	overflow: scroll;
+}
+.js .carousel {
 	overflow:hidden;
 }
 .carousel ul {
