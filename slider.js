@@ -100,12 +100,12 @@ if(typeof Object.create !== 'function'){
 				self.thumbStart = self.current - (self.options.maxThumbs - 1);
 				self.thumbEnd = self.current;
 
-				console.log("Begin");
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
+				// console.log("Begin");
+				// console.log("The current index is", self.current);
+				// console.log("End thumbslider is set to:", self.endThumbSlider);
+				// console.log("The starting visible thumb is:", self.thumbStart);
+				// console.log("The ending visible thumb is:", self.thumbEnd);
+				// console.log("End");
 				
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
@@ -116,12 +116,6 @@ if(typeof Object.create !== 'function'){
 				self.thumbEnd = self.current + (self.options.maxThumbs - 1);
 				self.endThumbSlider = false;
 
-				console.log("Begin");
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
 
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
@@ -130,80 +124,47 @@ if(typeof Object.create !== 'function'){
 
 				var amountOver = (self.current + self.options.maxThumbs) - self.end;
 
-				console.log("amount over is:", amountOver);
-
 				self.endThumbSlider = true;
 				self.thumbStart = self.current - amountOver;
 				self.thumbEnd = self.end;
 
-				console.log("Begin");
-				console.log(self.end);
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
 			
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
 
 			} else if(self.current < self.thumbStart && ((self.current - self.options.maxThumbs) <= self.start)) {
-				console.log("end of the line go back");
+	
 				self.thumbStart = 0;
 				self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
 
-				console.log("Begin");
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
+
 
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
 
 			} else if(self.current == (self.thumbStart - 1)) {
-				console.log("moving back");
-
+		
 				self.thumbStart = self.current - (self.options.maxThumbs - 1);
 				self.thumbEnd = self.current;
 				self.endThumbSlider = false;
 
-				console.log("Begin");
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
 
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
-			
-			} else if ( self.current <= self.thumbEnd) {
-
-				// console.log("moving");
-				console.log("Begin");
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
 				
-			}  else if ( self.current >= self.thumbEnd && !self.endThumbSlider) {
+			}  else if ( self.current > self.thumbEnd && !self.endThumbSlider) {
 				self.thumbStart = self.current;
 				self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
-
-				console.log("Begin");
-				console.log("The current index is", self.current);
-				console.log("End thumbslider is set to:", self.endThumbSlider);
-				console.log("The starting visible thumb is:", self.thumbStart);
-				console.log("The ending visible thumb is:", self.thumbEnd);
-				console.log("End");
 				
 				self.carouselFWDTransition(self.current);
 				
+			} else if ( self.current <= self.thumbEnd) {
+
+				return self.current;
+
 			} else {
-				console.log(self.current);
+				return self.current;
+				
 			}
 		},
 
@@ -226,8 +187,7 @@ if(typeof Object.create !== 'function'){
 
 			self.current = (pos < 0) ? self.$sliderImgsLen - 1 : pos % self.$sliderImgsLen;
 
-			console.log("slider images length is:", self.$sliderImgsLen);
-			console.log("the current image index is:", self.current);
+			
 			self.sliderTransition();
 			self.testF();
 			self.cTh();
