@@ -55,7 +55,7 @@ if(typeof Object.create !== 'function'){
 			// The range of images in the carousel - not sure if this is necessary
 			self.carouselRange = $('.carousel ul li');
 
-			console.log(self.sliderRange[4]);
+
 
 			self.arrowClick();
 			self.thumbClick();
