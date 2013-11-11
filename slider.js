@@ -49,8 +49,13 @@ if(typeof Object.create !== 'function'){
 			self.thumbStart = self.current;
 			self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
 
+			// The range of images in the slider - not sure if this is necessary
+			self.sliderRange = $('.slider ul li');
+
 			// The range of images in the carousel - not sure if this is necessary
-			self.visRange = $('.carousel ul li').slice(self.start, self.end);
+			self.carouselRange = $('.carousel ul li');
+
+			console.log(self.sliderRange[4]);
 
 			self.arrowClick();
 			self.thumbClick();
@@ -63,12 +68,12 @@ if(typeof Object.create !== 'function'){
 			});
 		},
 
-		quickTransition: function(currentImg){
+		quickTransition: function(){
 			var self = this;
 
-			var currentSliderImg = $(".slider ul li[data-num="+currentImg+"]");
+			var $currentSliderLi = $(self.sliderRange[self.current]);
 			
-			currentSliderImg
+			$currentSliderLi
 				.show()
 					.siblings('li')
 						.hide();
@@ -77,9 +82,9 @@ if(typeof Object.create !== 'function'){
 		fadeTransition: function(currentImg){
 			var self = this;
 
-			var currentSliderImg = $(".slider ul li[data-num="+currentImg+"]");
+			var $currentSliderLi = $(self.sliderRange[self.current]);
 			
-			currentSliderImg
+			$currentSliderLi
 				.fadeIn("500")
 					.siblings('li')
 						.fadeOut("500");
@@ -94,12 +99,12 @@ if(typeof Object.create !== 'function'){
 
 		thumbClick: function(){
 			var self = this;
-			self.$carousel.find('li').on('click', function(e){
+			self.carouselRange.on('click', function(e){
 				e.preventDefault();
 				self.current = $(this).data('num');
 		
 				// self.sliderTransition();
-				self.quickTransition(self.current);
+				self.quickTransition();
 				self.cTh();
 			});
 		},
@@ -190,9 +195,8 @@ if(typeof Object.create !== 'function'){
 
 			var self = this;
 			var pos = self.current;
-			var cThumb = $(".carousel li[data-num="+pos+"]");
-
-			cThumb
+			var $currentThumbLi = $(self.carouselRange[pos]);
+			$currentThumbLi
 				.addClass("cTH")
 				.siblings("li")
 					.removeClass("cTH");
@@ -207,7 +211,8 @@ if(typeof Object.create !== 'function'){
 			self.current = (pos < 0) ? self.$sliderImgsLen - 1 : pos % self.$sliderImgsLen;
 
 			// self.sliderTransition();
-			self.quickTransition(self.current);
+			self.quickTransition();
+			// self.fadeTransition();
 			self.testF();
 			self.cTh();
 		}
