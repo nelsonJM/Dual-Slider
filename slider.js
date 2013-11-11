@@ -71,7 +71,6 @@ if(typeof Object.create !== 'function'){
 
 		thumbClick: function(){
 			var self = this;
-
 			self.$carousel.find('li').on('click', function(e){
 				e.preventDefault();
 				self.current = $(this).data('num');
@@ -116,7 +115,6 @@ if(typeof Object.create !== 'function'){
 				self.thumbEnd = self.current + (self.options.maxThumbs - 1);
 				self.endThumbSlider = false;
 
-
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
 			
@@ -128,7 +126,6 @@ if(typeof Object.create !== 'function'){
 				self.thumbStart = self.current - amountOver;
 				self.thumbEnd = self.end;
 
-			
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
 
@@ -136,8 +133,6 @@ if(typeof Object.create !== 'function'){
 	
 				self.thumbStart = 0;
 				self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
-
-
 
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
@@ -147,7 +142,6 @@ if(typeof Object.create !== 'function'){
 				self.thumbStart = self.current - (self.options.maxThumbs - 1);
 				self.thumbEnd = self.current;
 				self.endThumbSlider = false;
-
 
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
@@ -187,7 +181,6 @@ if(typeof Object.create !== 'function'){
 
 			self.current = (pos < 0) ? self.$sliderImgsLen - 1 : pos % self.$sliderImgsLen;
 
-			
 			self.sliderTransition();
 			self.testF();
 			self.cTh();
