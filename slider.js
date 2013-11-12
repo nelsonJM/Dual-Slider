@@ -53,6 +53,7 @@ if(typeof Object.create !== 'function'){
 			// The range of images in the carousel - not sure if this is necessary
 			self.carouselRange = self.$elem.find($('.carousel ul li'));
 
+			self.cTh();
 			self.arrowClick();
 			self.thumbClick();
 		},
