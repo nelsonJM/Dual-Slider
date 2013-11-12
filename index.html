@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="slider.css">
 	<style>
 		body {
-			width: 400px;
+			width: 425px;
 			margin: 100px auto 0;
 		}
 		* {
@@ -18,7 +18,90 @@
 	<script src="modernizr.js"></script>
 </head>
 <body>
-	<div class="main-gallery">
+	<div id="main-gallery-1">
+		<div class="slider">
+			<ul class="feat-images">
+					<li id="image1"><img src="http://placehold.it/400x350&text=image1" alt="image"></li>
+					<li id="image2"><img src="http://placehold.it/400x350&text=image2" alt="image"></li>
+					<li id="image3"><img src="http://placehold.it/400x350&text=image3" alt="image"></li>
+					<li id="image4"><img src="http://placehold.it/400x350&text=image4" alt="image"></li>
+					<li id="image5"><img src="http://placehold.it/400x350&text=image5" alt="image"></li>
+					<li id="image6"><img src="http://placehold.it/400x350&text=image6" alt="image"></li>
+					<li id="image7"><img src="http://placehold.it/400x350&text=image7" alt="image"></li>
+					<li id="image8"><img src="http://placehold.it/400x350&text=image8" alt="image"></li>
+					<li id="image9"><img src="http://placehold.it/400x350&text=image9" alt="image"></li>
+					<li id="image10"><img src="http://placehold.it/400x350&text=imag10" alt="image"></li>
+					<li id="image11"><img src="http://placehold.it/400x350&text=image11" alt="image"></li>
+					<li id="image12"><img src="http://placehold.it/400x350&text=image12" alt="image"></li>
+					<li id="image13"><img src="http://placehold.it/400x350&text=image13" alt="image"></li>
+					<li id="image14"><img src="http://placehold.it/400x350&text=image14" alt="image"></li>
+			</ul>
+		</div>
+		<div class="slider-nav">
+			<button class="slider-dir" data-dir="prev">Previous</button>
+			<button class="slider-dir" data-dir="next">Next</button>
+		</div>
+		<div class="carousel">
+			<ul>
+				<li data-num="0" class="cTH">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image1" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="1">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image2" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="2">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image3" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="3">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image4" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="4">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image5" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="5"><a href="#"><img src="http://placehold.it/150x150&text=image6" alt="image" height="80" width="80"></a></li>
+				<li data-num="6"><a href="#"><img src="http://placehold.it/150x150&text=image7" alt="image" height="80" width="80"></a></li>
+				<li data-num="7"><a href="#"><img src="http://placehold.it/150x150&text=image8" alt="image" height="80" width="80"></a></li>
+				<li data-num="8"><a href="#"><img src="http://placehold.it/150x150&text=image9" alt="image" height="80" width="80"></a></li>
+				<li data-num="9">
+					<a href="#"><img src="http://placehold.it/150x150&text=image10" alt="image" height="80" width="80"></a></li>
+				<li data-num="10">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image11" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="11">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image12" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="12">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image13" alt="image" height="80" width="80">
+					</a>
+				</li>
+				<li data-num="13">
+					<a href="#">
+						<img src="http://placehold.it/150x150&text=image14" alt="image" height="80" width="80">
+					</a>
+				</li>
+			</ul>		
+		</div>
+		<div class="slider-nav">
+			<button class="thumb-dir" data-dir="prev">Previous</button>
+			<button class="thumb-dir" data-dir="next">Next</button>
+		</div>
+	</div>
+	<div id="main-gallery-2">
 		<div class="slider">
 			<ul class="feat-images">
 					<li id="image1"><img src="http://placehold.it/400x350&text=image1" alt="image"></li>
@@ -105,7 +188,8 @@
 <script src="slider.js"></script>
 <script>
 (function($) {
-	$('.main-gallery').Gallery();	
+	$('#main-gallery-1').Gallery();
+	$('#main-gallery-2').Gallery();	
 })(jQuery);
 </script>
 </body>

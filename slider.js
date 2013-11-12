@@ -11,17 +11,15 @@ if(typeof Object.create !== 'function'){
 		init: function(options, elem){
 			var self = this;
 
-			// Not sure about this	
-			var nav = $("div.slider-nav");
-			var slider = $("div.slider ul");
-			var carousel = $("div.carousel ul");
-
 			self.elem = elem;
 			self.$elem = $(elem);
 
-			self.$nav = self.$elem.find(nav);
-			self.$slider = self.$elem.find(slider);
-			self.$carousel = self.$elem.find(carousel);
+			// self.$nav = self.$elem.find(nav);
+			self.$nav = self.$elem.find($("div.slider-nav"));
+			// self.$slider = self.$elem.find(slider);
+			self.$slider = self.$elem.find($("div.slider ul"));
+			// self.$carousel = self.$elem.find(carousel);
+			self.$carousel = self.$elem.find($("div.carousel ul"));
 			self.$sliderImgs = self.$slider.find('img');
 			
 			self.$sliderImgWidth = self.$sliderImgs[0].width;
@@ -30,7 +28,7 @@ if(typeof Object.create !== 'function'){
 			self.$carouselImgWidth = self.$carouselImgs[0].width;
 			self.$carouselImgsLen = self.$carouselImgs.length;
 
-			self.$carouselWidth = $(".carousel").width();
+			self.$carouselWidth = self.$elem.find($(".carousel")).width();
 
 			// Current image & thumb
 			self.current = 0;
@@ -50,12 +48,10 @@ if(typeof Object.create !== 'function'){
 			self.thumbEnd = self.thumbStart + (self.options.maxThumbs - 1);
 
 			// The range of images in the slider - not sure if this is necessary
-			self.sliderRange = $('.slider ul li');
+			self.sliderRange = self.$elem.find($('.slider ul li'));
 
 			// The range of images in the carousel - not sure if this is necessary
-			self.carouselRange = $('.carousel ul li');
-
-
+			self.carouselRange = self.$elem.find($('.carousel ul li'));
 
 			self.arrowClick();
 			self.thumbClick();
@@ -92,8 +88,9 @@ if(typeof Object.create !== 'function'){
 
 		carouselFWDTransition: function(hey){
 			var self = this;
+			
 			self.$carousel.animate({
-				'margin-left': -(hey * self.$carouselImgWidth)
+				'margin-left': -(hey * (self.$carouselImgWidth + self.options.marRtTh))
 			});
 		},
 
@@ -127,13 +124,6 @@ if(typeof Object.create !== 'function'){
 			
 				self.thumbStart = self.current - (self.options.maxThumbs - 1);
 				self.thumbEnd = self.current;
-
-				// console.log("Begin");
-				// console.log("The current index is", self.current);
-				// console.log("End thumbslider is set to:", self.endThumbSlider);
-				// console.log("The starting visible thumb is:", self.thumbStart);
-				// console.log("The ending visible thumb is:", self.thumbEnd);
-				// console.log("End");
 				
 				// Kickoff the carousel
 				self.carouselFWDTransition(self.thumbStart);
@@ -229,6 +219,7 @@ if(typeof Object.create !== 'function'){
 
 	$.fn.Gallery.options = {
 		coords: null,
-		maxThumbs: 5
+		maxThumbs: 5,
+		marRtTh: 5
 	};
 })(jQuery, window, document);

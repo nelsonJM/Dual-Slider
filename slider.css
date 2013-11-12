@@ -37,6 +37,7 @@
 }
 .carousel li {
 	float: left;
+	margin-right: 5px;
 }
 
 .carousel ul li a {
@@ -45,6 +46,11 @@
 
 .cTH a {
 	border: 2px solid red;
+
+}
+
+.cTH a img {
+	opacity: 1;
 }
 
 /*.feat-images {*/
