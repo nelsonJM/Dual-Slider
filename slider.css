@@ -8,39 +8,39 @@
 	border-radius: 10px;
 	cursor: pointer;
 }
-.slider {
+.jn_ss_slider {
 	width: inherit;
 	height: 300px;
 	overflow: scroll; 
 }
-.js .slider {
+.js .jn_ss_slider {
 	overflow:hidden;
 }
-.slider ul {
+.jn_ss_slider ul {
 	width: 10000px;
 	list-style: none;
 }
-.slider li {
+.jn_ss_slider li {
 	float: left;
 }
-.carousel {
+.jn_ss_carousel {
 	width: inherit;
 	height: 80px;
 	overflow: scroll;
 }
-.js .carousel {
+.js .jn_ss_carousel {
 	overflow:hidden;
 }
-.carousel ul {
+.jn_ss_carousel ul {
 	width: 10000px;
 	list-style: none;
 }
-.carousel li {
+.jn_ss_carousel li {
 	float: left;
 	margin-right: 5px;
 }
 
-.carousel ul li a {
+.jn_ss_carousel ul li a {
 	display: block;
 }
 
